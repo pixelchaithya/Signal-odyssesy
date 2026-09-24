@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Signal Odyssey | Terrain Evaluation</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Excel export library -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">⚡</div>
+
+            <div>
+                <h1>Signal Odyssey</h1>
+                <span>Terrain Control</span>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-btn active" data-section="dashboard">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-btn" data-section="teams">
+                <span class="nav-icon">♟</span>
+                <span>Teams</span>
+            </button>
+
+            <button class="nav-btn" data-section="terrain">
+                <span class="nav-icon">⌁</span>
+                <span>Terrain Setup</span>
+            </button>
+
+            <button class="nav-btn" data-section="results">
+                <span class="nav-icon">✎</span>
+                <span>Enter Results</span>
+            </button>
+
+            <button class="nav-btn" data-section="analysis">
+                <span class="nav-icon">◫</span>
+                <span>Analysis</span>
+            </button>
+
+            <button class="nav-btn" data-section="leaderboard">
+                <span class="nav-icon">♛</span>
+                <span>Leaderboard</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>System Online</strong>
+                    <small>Evaluation system ready</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+                <div class="eyebrow">SIGNAL ODYSSEY / TERRAIN CONTROL</div>
+                <h2 id="pageTitle">Evaluation Dashboard</h2>
+            </div>
+
+            <div class="topbar-right">
+                <div class="live-indicator">
+                    <span></span>
+                    LIVE
+                </div>
+
+                <div class="topbar-date" id="currentDate">
+                    --
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             DASHBOARD
+        ====================================================== -->
+
+        <section id="dashboard" class="section active">
+
+            <div class="hero-panel">
+
+                <div>
+                    <div class="hero-kicker">ROBOT TERRAIN EVALUATION SYSTEM</div>
+
+                    <h3>
+                        Measure.
+                        <span>Evaluate.</span>
+                        Rank.
+                    </h3>
+
+                    <p>
+                        Track terrain measurements, calculate accuracy,
+                        and evaluate every participating team from one control panel.
+                    </p>
+                </div>
+
+                <div class="hero-symbol">
+                    <div class="signal-ring ring-one"></div>
+                    <div class="signal-ring ring-two"></div>
+                    <div class="signal-core">⌁</div>
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Total Teams</span>
+                        <div class="stat-icon blue">♟</div>
+                    </div>
+
+                    <strong id="totalTeams">26</strong>
+
+                    <small>Registered participants</small>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Completed</span>
+                        <div class="stat-icon green">✓</div>
+                    </div>
+
+                    <strong id="completedTeams">0</strong>
+
+                    <small>Evaluations submitted</small>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Pending</span>
+                        <div class="stat-icon orange">◷</div>
+                    </div>
+
+                    <strong id="pendingTeams">26</strong>
+
+                    <small>Teams remaining</small>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Average Accuracy</span>
+                        <div class="stat-icon cyan">%</div>
+                    </div>
+
+                    <strong id="averageAccuracy">0.00%</strong>
+
+                    <small>Across evaluated teams</small>
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+                <!-- TOP TEAMS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="section-label">PERFORMANCE</span>
+                            <h3>Top Evaluations</h3>
+                        </div>
+
+                        <button class="ghost-btn" onclick="showSection('leaderboard')">
+                            View all →
+                        </button>
+                    </div>
+
+                    <div id="topThree" class="top-three">
+                        <!-- JS -->
+                    </div>
+
+                </div>
+
+
+                <!-- ROUTE CONFIG -->
+
+                <div class="panel route-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="section-label">ROUTE CONFIG</span>
+                            <h3>Terrain Paths</h3>
+                        </div>
+
+                        <span class="config-badge">3 ROUTES</span>
+                    </div>
+
+                    <p class="panel-description">
+                        Current terrain configuration
+                    </p>
+
+                    <div id="pathPreview" class="path-preview">
+                        <!-- JS -->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-footer-card">
+
+                <div>
+                    <span class="section-label">READY FOR EVALUATION</span>
+
+                    <h3>
+                        Start entering terrain measurements
+                    </h3>
+
+                    <p>
+                        Select a team, choose its assigned path,
+                        and enter the measured values for all three terrains.
+                    </p>
+                </div>
+
+                <button class="primary-btn" onclick="showSection('results')">
+                    Enter Results
+                    <span>→</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TEAMS
+        ====================================================== -->
+
+        <section id="teams" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">TEAM REGISTRY</span>
+                    <h2>Participating Teams</h2>
+
+                    <p>
+                        All registered teams and their evaluation status.
+                    </p>
+                </div>
+
+                <div class="heading-counter">
+                    <strong id="teamCountDisplay">26</strong>
+                    <span>Teams</span>
+                </div>
+
+            </div>
+
+            <div id="teamGrid" class="team-grid">
+                <!-- JS -->
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TERRAIN SETUP
+        ====================================================== -->
+
+        <section id="terrain" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">TERRAIN CONFIGURATION</span>
+
+                    <h2>Ideal Measurements</h2>
+
+                    <p>
+                        Each path has its own ideal measurement for every terrain.
+                    </p>
+                </div>
+
+                <div class="configuration-badge">
+                    3 PATHS × 3 TERRAINS
+                </div>
+
+            </div>
+
+
+            <div class="info-banner">
+
+                <div class="info-icon">i</div>
+
+                <div>
+                    <strong>Path-specific measurements</strong>
+
+                    <p>
+                        The ideal value changes depending on the path.
+                        These values are used automatically when calculating
+                        percentage error and accuracy.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="terrainCards" class="terrain-path-grid">
+                <!-- JS -->
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ENTER RESULTS
+        ====================================================== -->
+
+        <section id="results" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">LIVE EVALUATION</span>
+
+                    <h2>Enter Results</h2>
+
+                    <p>
+                        Enter the actual measurement recorded by the team.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="editingNotice" class="editing-notice">
+                <div>
+                    <strong>Editing existing result</strong>
+                    <span id="editingText">
+                        Submit the form to update this team's result.
+                    </span>
+                </div>
+
+                <button onclick="clearForm()">Cancel</button>
+            </div>
+
+
+            <div class="evaluation-form">
+
+                <div class="form-header">
+
+                    <div>
+                        <span class="section-label">STEP 01</span>
+                        <h3>Select Evaluation</h3>
+                    </div>
+
+                    <div class="form-status">
+                        <span class="status-dot"></span>
+                        Ready
+                    </div>
+
+                </div>
+
+
+                <div class="selection-grid">
+
+                    <div class="form-group">
+
+                        <label for="teamSelect">
+                            Team
+                        </label>
+
+                        <select id="teamSelect">
+                            <option value="">
+                                Select a team
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pathSelect">
+                            Terrain Path
+                        </label>
+
+                        <select id="pathSelect">
+                            <option value="">
+                                Select a path
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-divider"></div>
+
+
+                <div class="form-header measurement-header">
+
+                    <div>
+                        <span class="section-label">STEP 02</span>
+                        <h3>Terrain Measurements</h3>
+                    </div>
+
+                    <span class="measurement-note">
+                        Enter values in metres
+                    </span>
+
+                </div>
+
+
+                <div id="terrainInputs" class="measurement-grid">
+
+                    <div class="empty-state">
+                        <div class="empty-icon">⌁</div>
+
+                        <h3>Select a team and path</h3>
+
+                        <p>
+                            Terrain measurement fields will appear here.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button class="secondary-btn" onclick="clearForm()">
+                        Clear
+                    </button>
+
+                    <button class="primary-btn" onclick="submitResult()">
+                        Save Evaluation
+                        <span>✓</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ANALYSIS
+        ====================================================== -->
+
+        <section id="analysis" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">PERFORMANCE ANALYSIS</span>
+
+                    <h2>Evaluation Analysis</h2>
+
+                    <p>
+                        Compare accuracy and terrain-wise performance.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="analysisContent">
+                <!-- JS -->
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             LEADERBOARD
+        ====================================================== -->
+
+        <section id="leaderboard" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">FINAL STANDINGS</span>
+
+                    <h2>Leaderboard</h2>
+
+                    <p>
+                        Teams ranked by average terrain accuracy.
+                    </p>
+                </div>
+
+                <button id="exportButton" class="export-btn">
+                    ↓ Export Excel
+                </button>
+
+            </div>
+
+
+            <div class="leaderboard-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team</th>
+                                <th>Path</th>
+                                <th>Smooth</th>
+                                <th>Rocky</th>
+                                <th>Bumpy</th>
+                                <th>Final Accuracy</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="leaderboardBody">
+                            <!-- JS -->
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     RESULT MODAL
+========================================================== -->
+
+<div id="resultModal" class="modal">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-box">
+
+        <button class="modal-close" onclick="closeModal()">
+            ×
+        </button>
+
+        <div class="modal-symbol">
+            ✓
+        </div>
+
+        <span class="section-label">EVALUATION SAVED</span>
+
+        <h2 id="modalMessage">
+            Result saved
+        </h2>
+
+        <div id="resultSummary" class="result-summary">
+            <!-- JS -->
+        </div>
+
+        <div class="final-result-box">
+
+            <div>
+                <span>FINAL ACCURACY</span>
+                <strong id="modalScore">0.00%</strong>
+            </div>
+
+            <div class="final-score-value">
+                <span>FINAL SCORE</span>
+                <strong id="modalFinalScore">0.00 / 100</strong>
+            </div>
+
+        </div>
+
+        <button class="primary-btn modal-btn" onclick="closeModal()">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
