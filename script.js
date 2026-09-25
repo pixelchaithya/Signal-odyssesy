@@ -71,21 +71,21 @@ const terrainData = {
 const paths = {
 
     "Path 01": [
-        "Smooth",
-        "Rocky",
-        "Bumpy"
-    ],
-
-    "Path 02": [
-        "Rocky",
-        "Bumpy",
-        "Smooth"
-    ],
-
-    "Path 03": [
         "Bumpy",
         "Smooth",
         "Rocky"
+    ],
+
+    "Path 02": [
+        "Smooth",
+        "Bumpy",
+        "Rocky"
+    ],
+
+    "Path 03": [
+        "Rocky",
+        "Smooth",
+        "Bumpy"
     ]
 
 };
@@ -112,21 +112,21 @@ const paths = {
 const pathMeasurements = {
 
     "Path 01": {
-        Smooth: 2.00,
-        Rocky: 2.40,
-        Bumpy: 1.80
+        Bumpy: 0.53,
+        Smooth: 0.50,
+        Rocky: 0.45
     },
 
     "Path 02": {
-        Rocky: 2.20,
-        Bumpy: 2.60,
-        Smooth: 1.70
+        Smooth: 0.40,
+        Bumpy: 0.49,
+        Rocky: 0.57
     },
 
     "Path 03": {
-        Bumpy: 2.30,
-        Smooth: 1.90,
-        Rocky: 2.50
+        Rocky: 0.43,
+        Smooth:0.50,
+        Bumpy: 0.50
     }
 
 };
